@@ -11,14 +11,27 @@ export default class NotePageMain extends Component {
     const { notes } = this.context;
     const { noteId } = this.props.match.params;
     const note = findNote(notes, noteId) || {};
+    console.log(note);
+    console.log(note.content);
 
     return (
       <section className="NotePageMain">
-        <Note id={note.id} name={note.name} modified={note.modified} />
+        <Note
+          id={note.id}
+          name={note.name}
+          modified={note.modified}
+          history={this.props.history}
+        />
+        {/* On a page refresh on the /note path, the note will
+        not have been loaded from the API yet, so .split will
+        give an error. So this is a quick check to only try
+        to render note.content, if it isn't undefined. */}
         <div className="NotePageMain__content">
-          {note.content.split(/\n \r|\n/).map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
+          {note.content
+            ? note.content
+                .split(/\n \r|\n/)
+                .map((para, i) => <p key={i}>{para}</p>)
+            : null}
         </div>
       </section>
     );

@@ -6,7 +6,15 @@ import "./Note.css";
 import { noteServer } from "../config";
 import NotefulContext from "../NotefulContext/NotefulContext";
 
-function deleteNoteFromServer(noteId, callback) {
+function deleteNoteFromServer(noteId, callback, { push } = () => {}) {
+  // pretty hacky. if Note is called from NotePageMain, it's passed
+  // history as a prop, if it's called from NoteListMain, it isn't,
+  // and in that case, I assign push() an empty function
+  push =
+    push ||
+    function() {
+      return;
+    };
   const options = {
     method: "DELETE",
     headers: { "content-type": "application/json" },
@@ -20,8 +28,9 @@ function deleteNoteFromServer(noteId, callback) {
       return response.json();
     })
     .then((r) => {
-      console.log(r);
+      console.log(push);
       callback(noteId);
+      push("/");
     })
     .catch((error) => {
       console.error(error);
@@ -40,7 +49,11 @@ export default function Note(props) {
             className="Note__delete"
             type="button"
             onClick={() => {
-              deleteNoteFromServer(props.id, context.deleteNoteFromState);
+              deleteNoteFromServer(
+                props.id,
+                context.deleteNoteFromState,
+                props.history
+              );
             }}
           >
             <FontAwesomeIcon icon="trash-alt" /> remove
