@@ -6,10 +6,8 @@ import NotePageNav from "../NotePageNav/NotePageNav";
 import NoteListMain from "../NoteListMain/NoteListMain";
 import NotePageMain from "../NotePageMain/NotePageMain";
 import NotefulContext from "../NotefulContext/NotefulContext";
-import dummyStore from "../dummy-store";
+import { noteServer } from "../config";
 import "./App.css";
-
-const noteServer = "http://localhost:9090";
 
 class App extends Component {
   state = {
@@ -72,9 +70,22 @@ class App extends Component {
     );
   }
 
+  deleteNoteFromState = (noteId) => {
+    const newNotes = this.state.notes.filter((n) => n.id !== noteId);
+    this.setState({
+      notes: newNotes,
+    });
+  };
+
   render() {
+    const contextValue = {
+      notes: this.state.notes,
+      folders: this.state.folders,
+      deleteNoteFromState: this.deleteNoteFromState,
+    };
+
     return (
-      <NotefulContext.Provider value={this.state}>
+      <NotefulContext.Provider value={contextValue}>
         <div className="App">
           <nav className="App__nav">{this.renderNavRoutes()}</nav>
           <header className="App__header">
