@@ -9,6 +9,8 @@ import NotefulContext from "../NotefulContext/NotefulContext";
 import dummyStore from "../dummy-store";
 import "./App.css";
 
+const noteServer = "http://localhost:9090";
+
 class App extends Component {
   state = {
     notes: [],
@@ -16,8 +18,34 @@ class App extends Component {
   };
 
   componentDidMount() {
-    // fake date loading from API call
-    setTimeout(() => this.setState(dummyStore), 600);
+    // we need to get 'notes' and 'folders' from two different endpoints
+    // I found that we can do them at the same time with 'Promise.all'
+    const options = {
+      method: "GET",
+      headers: { "content-type": "application/json" },
+    };
+    Promise.all([
+      fetch(noteServer + "/notes", options),
+      fetch(noteServer + "/folders", options),
+    ])
+      .then((response) => {
+        if (!response[0].ok || !response[1].ok) {
+          throw new Error("Something went wrong.");
+        }
+        return response;
+      })
+      .then((response) =>
+        Promise.all(response.map((response) => response.json()))
+      )
+      .then((response) => {
+        this.setState({
+          notes: response[0],
+          folders: response[1],
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   renderNavRoutes() {
