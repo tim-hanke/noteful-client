@@ -70,7 +70,7 @@ class App extends Component {
     );
   }
 
-  deleteNoteFromState = (noteId) => {
+  deleteNote = (noteId) => {
     const newNotes = this.state.notes.filter((n) => n.id !== noteId);
     this.setState({
       notes: newNotes,
@@ -81,7 +81,7 @@ class App extends Component {
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,
-      deleteNoteFromState: this.deleteNoteFromState,
+      deleteNote: this.deleteNote,
     };
 
     return (

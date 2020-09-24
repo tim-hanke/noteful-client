@@ -5,14 +5,21 @@ import { findNote } from "../notes-helpers";
 import "./NotePageMain.css";
 
 export default class NotePageMain extends Component {
+  static defaultProps = {
+    match: {
+      params: {},
+    },
+  };
   static contextType = NotefulContext;
+
+  handleDeleteNote = (noteId) => {
+    this.props.history.push("/");
+  };
 
   render() {
     const { notes } = this.context;
     const { noteId } = this.props.match.params;
     const note = findNote(notes, noteId) || {};
-    console.log(note);
-    console.log(note.content);
 
     return (
       <section className="NotePageMain">
@@ -20,7 +27,7 @@ export default class NotePageMain extends Component {
           id={note.id}
           name={note.name}
           modified={note.modified}
-          history={this.props.history}
+          onDeleteNote={this.handleDeleteNote}
         />
         {/* On a page refresh on the /note path, the note will
         not have been loaded from the API yet, so .split will

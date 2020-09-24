@@ -44,7 +44,3 @@ export default class NoteListNav extends Component {
     );
   }
 }
-
-NoteListNav.defaultProps = {
-  folders: [],
-};

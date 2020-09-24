@@ -40,7 +40,3 @@ export default class NoteListMain extends Component {
     );
   }
 }
-
-NoteListMain.defaultProps = {
-  notes: [],
-};

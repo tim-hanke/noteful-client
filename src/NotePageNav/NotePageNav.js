@@ -7,6 +7,15 @@ import CircleButton from "../CircleButton/CircleButton";
 import "./NotePageNav.css";
 
 export default class NotePageNav extends Component {
+  static defaultProps = {
+    history: {
+      goBack: () => {},
+    },
+    match: {
+      params: {},
+    },
+  };
+
   static contextType = NotefulContext;
 
   render() {
@@ -32,9 +41,3 @@ export default class NotePageNav extends Component {
     );
   }
 }
-
-NotePageNav.defaultProps = {
-  history: {
-    goBack: () => {},
-  },
-};
