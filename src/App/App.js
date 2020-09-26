@@ -6,6 +6,7 @@ import NotePageNav from "../NotePageNav/NotePageNav";
 import NoteListMain from "../NoteListMain/NoteListMain";
 import NotePageMain from "../NotePageMain/NotePageMain";
 import NotefulContext from "../NotefulContext/NotefulContext";
+import AddFolder from "../AddFolder/AddFolder";
 import { noteServer } from "../config";
 import "./App.css";
 
@@ -53,7 +54,7 @@ class App extends Component {
           <Route exact key={path} path={path} component={NoteListNav} />
         ))}
         <Route path="/note/:noteId" component={NotePageNav} />
-        <Route path="/add-folder" component={NotePageNav} />
+        <Route path="/add-folder" component={AddFolder} />
         <Route path="/add-note" component={NotePageNav} />
       </>
     );
