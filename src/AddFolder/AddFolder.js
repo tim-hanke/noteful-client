@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { noteServer } from "../config";
 import NotefulContext from "../NotefulContext/NotefulContext";
 import "./AddFolder.css";
 
@@ -6,8 +7,8 @@ export default class AddFolder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      folderName: {
-        value: "New Folder",
+      folder: {
+        name: "New Folder",
       },
     };
   }
@@ -15,13 +16,31 @@ export default class AddFolder extends Component {
   static contextType = NotefulContext;
 
   updateFolderName(name) {
-    this.setState({ folderName: { value: name } });
+    this.setState({ folder: { name: name } });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { folderName } = this.state;
-    console.log("New Folder Name: ", folderName.value);
+    const { folder } = this.state;
+    const options = {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(folder),
+    };
+    fetch(noteServer + "/folders", options)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Something went wrong adding the folder.");
+        }
+        return response.json();
+      })
+      .then((response) => {
+        this.context.addFolder(response);
+        this.props.history.goBack();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   render() {
@@ -41,7 +60,7 @@ export default class AddFolder extends Component {
             type="text"
             id="folderName"
             name="folderName"
-            value={this.state.folderName.value}
+            value={this.state.folder.name}
             onChange={(e) => {
               this.updateFolderName(e.target.value);
             }}

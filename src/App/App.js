@@ -79,11 +79,19 @@ class App extends Component {
     });
   };
 
+  addFolder = (folder) => {
+    const newFolders = [...this.state.folders, folder];
+    this.setState({
+      folders: newFolders,
+    });
+  };
+
   render() {
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,
       deleteNote: this.deleteNote,
+      addFolder: this.addFolder,
     };
 
     return (
