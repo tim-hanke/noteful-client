@@ -1,0 +1,70 @@
+.AddNote {
+  margin: 0;
+  padding: 10px;
+}
+
+.AddNote__form {
+  --note-height: 250px;
+  background-color: #010d1e;
+  color: #cacaca;
+  height: var(--note-height);
+  margin-bottom: 8px;
+  max-width: 380px;
+  padding: 8px 0 8px 8px;
+  position: relative;
+}
+
+.AddNote__form label {
+  display: block;
+  font-family: var(--custom-font);
+  margin: 0;
+  max-width: 80%;
+  min-height: 24px;
+}
+
+.AddNote__form h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.AddNote__form input,
+.AddNote__form textarea,
+.AddNote__form select {
+  font-size: 14px;
+  padding: 8px;
+  width: 300px;
+}
+
+.AddNote__form select {
+  height: 35px;
+}
+
+.AddNote__form > .field {
+  margin-bottom: 16px;
+}
+
+.AddNote__form > .buttons {
+  margin-top: 26px;
+}
+
+.AddNote__form button {
+  --note-button-height: 32px;
+  background-color: #041a3a;
+  border: 0;
+  color: #bdbcbc;
+  float: right;
+  font-size: 12px;
+  height: var(--note-button-height);
+  position: relative;
+  top: calc((var(--note-button-height) + 8px) * -1);
+  transform-origin: right bottom;
+  transform: rotate(-90deg);
+  width: calc(var(--note-height));
+}
+
+.AddNote__form button:hover {
+  background-color: #29862e;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}

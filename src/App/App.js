@@ -9,6 +9,7 @@ import NotefulContext from "../NotefulContext/NotefulContext";
 import AddFolder from "../AddFolder/AddFolder";
 import { noteServer } from "../config";
 import "./App.css";
+import AddNote from "../AddNote/AddNote";
 
 class App extends Component {
   state = {
@@ -68,12 +69,20 @@ class App extends Component {
         ))}
         <Route path="/note/:noteId" component={NotePageMain} />
         <Route path="/add-folder" component={AddFolder} />
+        <Route path="/add-note" component={AddNote} />
       </>
     );
   }
 
   deleteNote = (noteId) => {
     const newNotes = this.state.notes.filter((n) => n.id !== noteId);
+    this.setState({
+      notes: newNotes,
+    });
+  };
+
+  addNote = (note) => {
+    const newNotes = [...this.state.notes, note];
     this.setState({
       notes: newNotes,
     });
@@ -92,6 +101,7 @@ class App extends Component {
       folders: this.state.folders,
       deleteNote: this.deleteNote,
       addFolder: this.addFolder,
+      addNote: this.addNote,
     };
 
     return (
