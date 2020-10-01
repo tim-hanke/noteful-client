@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Note.css";
 import { noteServer } from "../config";
 import NotefulContext from "../NotefulContext/NotefulContext";
+import PropTypes from "prop-types";
 
 export default class Note extends Component {
   static defaultProps = {
@@ -62,3 +63,9 @@ export default class Note extends Component {
     );
   }
 }
+
+Note.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  modified: PropTypes.string.isRequired,
+};

@@ -19,46 +19,53 @@ class App extends Component {
     folders: [],
   };
 
-  componentDidMount() {
+  async blah() {
+    return await fetch("/api/endpoint");
+  }
+
+  async componentDidMount() {
     // we need to get 'notes' and 'folders' from two different endpoints
     // I found that we can do them at the same time with 'Promise.all'
     const options = {
       method: "GET",
       headers: { "content-type": "application/json" },
     };
-    Promise.all([
-      fetch(noteServer + "/notes", options),
-      fetch(noteServer + "/folders", options),
-    ])
-      .then((response) => {
-        if (!response[0].ok || !response[1].ok) {
-          throw new Error("Something went wrong.");
-        }
-        return response;
-      })
-      .then((response) =>
-        Promise.all(response.map((response) => response.json()))
-      )
-      .then((response) => {
-        this.setState({
-          notes: response[0],
-          folders: response[1],
-        });
-      })
-      .catch((err) => {
-        console.error(err);
+
+    try {
+      const [notesResponse, foldersResponse] = await Promise.all([
+        fetch(noteServer + "/notes", options),
+        fetch(noteServer + "/folders", options),
+      ]);
+
+      if (!notesResponse.ok || !foldersResponse.ok) {
+        throw new Error("Something went wrong.");
+      }
+
+      const [notes, folders] = await Promise.all([
+        notesResponse.json(), // https://developer.mozilla.org/en-US/docs/Web/API/Body/json
+        foldersResponse.json(),
+      ]);
+
+      this.setState({
+        notes,
+        folders,
       });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   renderNavRoutes() {
+    // mapping arrays of paths because NoteListNav goes with several
+    // paths and NotePageNav goes with the other ones
     return (
       <>
         {["/", "/folder/:folderId"].map((path) => (
           <Route exact key={path} path={path} component={NoteListNav} />
         ))}
-        <Route path="/note/:noteId" component={NotePageNav} />
-        <Route path="/add-folder" component={NotePageNav} />
-        <Route path="/add-note" component={NotePageNav} />
+        {["/note/:noteId", "/add-folder", "/add-note"].map((path) => (
+          <Route key={path} path={path} component={NotePageNav} />
+        ))}
       </>
     );
   }
