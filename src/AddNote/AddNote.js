@@ -39,6 +39,19 @@ export default class AddNote extends Component {
     this.setState(newState);
   }
 
+  validateNoteName() {
+    const name = this.state.note.name.trim();
+    if (name.length === 0) {
+      return "A name is required for the note.";
+    }
+  }
+
+  validateNoteFolderId() {
+    if (this.state.note.folderId === "") {
+      return "Please select a folder.";
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     const { note } = this.state;
@@ -56,7 +69,6 @@ export default class AddNote extends Component {
         return response.json();
       })
       .then((response) => {
-        console.log(response);
         this.context.addNote(response);
         this.props.history.goBack();
       })
@@ -73,7 +85,6 @@ export default class AddNote extends Component {
         </option>
       );
     });
-    console.log(this.state);
     return (
       <section className="AddNote">
         <form

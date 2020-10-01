@@ -10,6 +10,8 @@ import AddFolder from "../AddFolder/AddFolder";
 import { noteServer } from "../config";
 import "./App.css";
 import AddNote from "../AddNote/AddNote";
+import NavError from "../NavError/NavError";
+import MainError from "../MainError/MainError";
 
 class App extends Component {
   state = {
@@ -107,14 +109,18 @@ class App extends Component {
     return (
       <NotefulContext.Provider value={contextValue}>
         <div className="App">
-          <nav className="App__nav">{this.renderNavRoutes()}</nav>
+          <NavError>
+            <nav className="App__nav">{this.renderNavRoutes()}</nav>
+          </NavError>
           <header className="App__header">
             <h1>
               <Link to="/">Noteful</Link>{" "}
               <FontAwesomeIcon icon="check-double" />
             </h1>
           </header>
-          <main className="App__main">{this.renderMainRoutes()}</main>
+          <MainError>
+            <main className="App__main">{this.renderMainRoutes()}</main>
+          </MainError>
         </div>
       </NotefulContext.Provider>
     );

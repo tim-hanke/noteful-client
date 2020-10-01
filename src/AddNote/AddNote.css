@@ -68,3 +68,10 @@
   cursor: pointer;
   font-weight: bold;
 }
+
+.AddNote__form button:disabled {
+  opacity: 0.3;
+  background-color: #041a3a;
+  color: #bdbcbc;
+  font-weight: normal;
+}
