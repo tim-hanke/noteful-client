@@ -11,6 +11,7 @@ export default class AddNote extends Component {
         name: "",
         folderId: "",
         content: "",
+        modified: "",
       },
     };
   }
@@ -41,6 +42,7 @@ export default class AddNote extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const { note } = this.state;
+    note.modified = Date().toLocaleString();
     const options = {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -54,7 +56,6 @@ export default class AddNote extends Component {
         return response.json();
       })
       .then((response) => {
-        response.modified = Date().toLocaleString();
         console.log(response);
         this.context.addNote(response);
         this.props.history.goBack();
