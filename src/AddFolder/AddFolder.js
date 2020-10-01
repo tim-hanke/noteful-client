@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { noteServer } from "../config";
 import NotefulContext from "../NotefulContext/NotefulContext";
+import ValidationError from "../ValidationError/ValidationError";
 import "./AddFolder.css";
 
 export default class AddFolder extends Component {
@@ -8,7 +9,8 @@ export default class AddFolder extends Component {
     super(props);
     this.state = {
       folder: {
-        name: "New Folder",
+        name: "",
+        touched: false,
       },
     };
   }
@@ -16,7 +18,14 @@ export default class AddFolder extends Component {
   static contextType = NotefulContext;
 
   updateFolderName(name) {
-    this.setState({ folder: { name: name } });
+    this.setState({ folder: { name: name, touched: true } });
+  }
+
+  validateFolderName() {
+    const name = this.state.folder.name.trim();
+    if (name.length === 0) {
+      return "A name is required for the folder.";
+    }
   }
 
   handleSubmit(e) {
@@ -52,10 +61,12 @@ export default class AddFolder extends Component {
             this.handleSubmit(e);
           }}
         >
+          <button type="submit" disabled={this.validateFolderName()}>
+            Add Folder
+          </button>
           <label htmlFor="folderName">
             <h2>Folder Name:</h2>
           </label>
-          <button type="submit">Add Folder</button>
           <input
             type="text"
             id="folderName"
@@ -65,6 +76,9 @@ export default class AddFolder extends Component {
               this.updateFolderName(e.target.value);
             }}
           />
+          {this.state.folder.touched && (
+            <ValidationError message={this.validateFolderName()} />
+          )}
         </form>
       </section>
     );

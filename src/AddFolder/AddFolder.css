@@ -4,10 +4,10 @@
 }
 
 .AddFolder__form {
-  --note-height: 110px;
+  --form-height: 100px;
   background-color: #010d1e;
   color: #cacaca;
-  height: var(--note-height);
+  height: var(--form-height);
   margin-bottom: 8px;
   max-width: 380px;
   padding: 8px 0 8px 8px;
@@ -39,27 +39,19 @@
   height: 33px;
 }
 
-.AddFolder__form > .field {
-  margin-bottom: 16px;
-}
-
-.AddFolder__form > .buttons {
-  margin-top: 26px;
-}
-
 .AddFolder__form button {
-  --note-button-height: 32px;
+  --form-button-height: 32px;
   background-color: #041a3a;
   border: 0;
   color: #bdbcbc;
   float: right;
   font-size: 12px;
-  height: var(--note-button-height);
+  height: var(--form-button-height);
   position: relative;
-  top: calc((var(--note-button-height) + 32px) * -1);
+  top: calc((var(--form-button-height) + 8px) * -1);
   transform-origin: right bottom;
   transform: rotate(-90deg);
-  width: calc(var(--note-height));
+  width: calc(var(--form-height));
 }
 
 .AddFolder__form button:hover {
@@ -67,4 +59,11 @@
   color: white;
   cursor: pointer;
   font-weight: bold;
+}
+
+.AddFolder__form button:disabled {
+  opacity: 0.3;
+  background-color: #041a3a;
+  color: #bdbcbc;
+  font-weight: normal;
 }
