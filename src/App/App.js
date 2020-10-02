@@ -19,10 +19,6 @@ class App extends Component {
     folders: [],
   };
 
-  async blah() {
-    return await fetch("/api/endpoint");
-  }
-
   async componentDidMount() {
     // we need to get 'notes' and 'folders' from two different endpoints
     // I found that we can do them at the same time with 'Promise.all'
@@ -78,7 +74,7 @@ class App extends Component {
         ))}
         <Route path="/note/:noteId" component={NotePageMain} />
         <Route path="/add-folder" component={AddFolder} />
-        <Route path="/add-note" component={AddNote} />
+        <Route path="/add-note/:folderId" component={AddNote} />
       </>
     );
   }

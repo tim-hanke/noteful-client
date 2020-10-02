@@ -13,6 +13,7 @@ export default class NoteListMain extends Component {
   render() {
     const { notes } = this.context;
     const { folderId } = this.props.match.params;
+    console.log(folderId);
     const filteredNotes = getNotesForFolder(notes, folderId);
 
     return (
@@ -27,7 +28,7 @@ export default class NoteListMain extends Component {
         <div className="NoteListMain__button-container">
           <CircleButton
             tag={Link}
-            to="/add-note"
+            to={`/add-note/${folderId}`}
             type="button"
             className="NoteListMain__add-note-button"
           >

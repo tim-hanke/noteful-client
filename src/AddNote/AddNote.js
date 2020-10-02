@@ -6,10 +6,14 @@ import "./AddNote.css";
 export default class AddNote extends Component {
   constructor(props) {
     super(props);
+    // when calling AddNote, NoteListMain puts the current folder
+    // in the path so that the current folder is pre-selected
+    // the user can still select another folder for the note
+    // or create a new folder
     this.state = {
       note: {
         name: "",
-        folderId: "",
+        folderId: this.props.match.params.folderId,
         content: "",
         modified: "",
       },
