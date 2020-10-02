@@ -28,7 +28,7 @@ export default class AddFolder extends Component {
     }
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
     const { folder } = this.state;
     const options = {
@@ -36,20 +36,21 @@ export default class AddFolder extends Component {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(folder),
     };
-    fetch(noteServer + "/folders", options)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Something went wrong adding the folder.");
-        }
-        return response.json();
-      })
-      .then((response) => {
-        this.context.addFolder(response);
-        this.props.history.goBack();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+
+    try {
+      const folderResponse = await fetch(noteServer + "/folders", options);
+
+      if (!folderResponse.ok) {
+        throw new Error("Something went wrong adding the folder.");
+      }
+
+      const folder = await folderResponse.json();
+
+      this.context.addFolder(folder);
+      this.props.history.goBack();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   render() {

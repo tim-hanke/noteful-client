@@ -52,7 +52,7 @@ export default class AddNote extends Component {
     }
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
     const { note } = this.state;
     note.modified = Date().toLocaleString();
@@ -61,20 +61,20 @@ export default class AddNote extends Component {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(note),
     };
-    fetch(noteServer + "/notes", options)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Something went wrong adding the note.");
-        }
-        return response.json();
-      })
-      .then((response) => {
-        this.context.addNote(response);
-        this.props.history.goBack();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    try {
+      const noteResponse = await fetch(noteServer + "/notes", options);
+
+      if (!noteResponse.ok) {
+        throw new Error("Something went wrong adding the note.");
+      }
+
+      const note = await noteResponse.json();
+
+      this.context.addNote(note);
+      this.props.history.goBack();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   render() {
