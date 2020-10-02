@@ -13,7 +13,6 @@ export default class NoteListMain extends Component {
   render() {
     const { notes } = this.context;
     const { folderId } = this.props.match.params;
-    console.log(folderId);
     const filteredNotes = getNotesForFolder(notes, folderId);
 
     return (
