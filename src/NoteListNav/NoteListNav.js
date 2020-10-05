@@ -37,7 +37,7 @@ export default class NoteListNav extends Component {
           >
             <FontAwesomeIcon icon="plus" />
             <br />
-            Folder
+            Add Folder
           </CircleButton>
         </div>
       </div>

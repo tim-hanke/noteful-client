@@ -33,7 +33,7 @@ export default class NoteListMain extends Component {
           >
             <FontAwesomeIcon icon="plus" />
             <br />
-            Note
+            Add Note
           </CircleButton>
         </div>
       </section>
