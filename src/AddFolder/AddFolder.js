@@ -54,6 +54,7 @@ export default class AddFolder extends Component {
   }
 
   render() {
+    const folderError = this.validateFolderName();
     return (
       <section className="AddFolder">
         <form
@@ -78,7 +79,7 @@ export default class AddFolder extends Component {
             }}
           />
           {this.state.folder.touched && (
-            <ValidationError message={this.validateFolderName()} />
+            <ValidationError message={folderError} />
           )}
         </form>
       </section>

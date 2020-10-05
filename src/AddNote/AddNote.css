@@ -4,7 +4,7 @@
 }
 
 .AddNote__form {
-  --note-height: 250px;
+  --note-height: 295px;
   background-color: #010d1e;
   color: #cacaca;
   height: var(--note-height);
@@ -35,16 +35,13 @@
   width: 300px;
 }
 
+.AddNote__form textarea {
+  resize: none;
+  height: 104px;
+}
+
 .AddNote__form select {
   height: 35px;
-}
-
-.AddNote__form > .field {
-  margin-bottom: 16px;
-}
-
-.AddNote__form > .buttons {
-  margin-top: 26px;
 }
 
 .AddNote__form button {

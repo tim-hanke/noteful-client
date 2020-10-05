@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { noteServer } from "../config";
 import NotefulContext from "../NotefulContext/NotefulContext";
+import ValidationError from "../ValidationError/ValidationError";
 import "./AddNote.css";
 
 export default class AddNote extends Component {
@@ -17,16 +18,12 @@ export default class AddNote extends Component {
         content: "",
         modified: "",
       },
+      nameTouched: false,
+      contentTouched: false,
     };
   }
 
   static contextType = NotefulContext;
-
-  updateNoteName(name) {
-    const newState = this.state;
-    newState.note.name = name;
-    this.setState(newState);
-  }
 
   updateNoteFolderId(folderId) {
     if (folderId === "addNewFolder") {
@@ -37,9 +34,17 @@ export default class AddNote extends Component {
     this.setState(newState);
   }
 
+  updateNoteName(name) {
+    const newState = this.state;
+    newState.note.name = name;
+    newState.nameTouched = true;
+    this.setState(newState);
+  }
+
   updateNoteContent(content) {
     const newState = this.state;
     newState.note.content = content;
+    newState.contentTouched = true;
     this.setState(newState);
   }
 
@@ -53,6 +58,13 @@ export default class AddNote extends Component {
   validateNoteFolderId() {
     if (this.state.note.folderId === "") {
       return "Please select a folder.";
+    }
+  }
+
+  validateNoteContent() {
+    const content = this.state.note.content.trim();
+    if (content.length === 0) {
+      return "Some content is required for the note.";
     }
   }
 
@@ -89,6 +101,9 @@ export default class AddNote extends Component {
         </option>
       );
     });
+    const nameError = this.validateNoteName();
+    const contentError = this.validateNoteContent();
+
     return (
       <section className="AddNote">
         <form
@@ -97,7 +112,16 @@ export default class AddNote extends Component {
             this.handleSubmit(e);
           }}
         >
-          <button type="submit">Add Note</button>
+          <button
+            type="submit"
+            disabled={
+              this.validateNoteFolderId() ||
+              this.validateNoteName() ||
+              this.validateNoteContent()
+            }
+          >
+            Add Note
+          </button>
           <label htmlFor="folderId">
             <h2>Folder:</h2>
           </label>
@@ -136,6 +160,10 @@ export default class AddNote extends Component {
               this.updateNoteContent(e.target.value);
             }}
           />
+          {this.state.nameTouched && <ValidationError message={nameError} />}
+          {this.state.contentTouched && (
+            <ValidationError message={contentError} />
+          )}
         </form>
       </section>
     );
