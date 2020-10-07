@@ -24,7 +24,7 @@ export default class AddFolder extends Component {
   validateFolderName() {
     const name = this.state.folder.name.trim();
     if (name.length === 0) {
-      return "A name is required for the folder.";
+      return "(name is required)";
     }
   }
 
@@ -55,6 +55,7 @@ export default class AddFolder extends Component {
 
   render() {
     const folderError = this.validateFolderName();
+    console.log(folderError);
     return (
       <section className="AddFolder">
         <form
@@ -64,12 +65,20 @@ export default class AddFolder extends Component {
           }}
         >
           <label htmlFor="folderName">
-            <h2>Folder Name:</h2>
+            <h2>
+              Folder Name:
+              <span className="required"> * </span>
+              {this.state.folder.touched && (
+                <ValidationError message={folderError} />
+              )}
+            </h2>
           </label>
           <input
             type="text"
             id="folderName"
             name="folderName"
+            aria-required="true"
+            aria-invalid={folderError}
             value={this.state.folder.name}
             onChange={(e) => {
               this.updateFolderName(e.target.value);
@@ -78,9 +87,6 @@ export default class AddFolder extends Component {
           <button type="submit" disabled={this.validateFolderName()}>
             Add Folder
           </button>
-          {this.state.folder.touched && (
-            <ValidationError message={folderError} />
-          )}
         </form>
       </section>
     );

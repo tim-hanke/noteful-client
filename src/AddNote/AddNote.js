@@ -18,6 +18,7 @@ export default class AddNote extends Component {
         content: "",
         modified: "",
       },
+      folderTouched: false,
       nameTouched: false,
       contentTouched: false,
     };
@@ -31,6 +32,7 @@ export default class AddNote extends Component {
     }
     const newState = this.state;
     newState.note.folderId = folderId;
+    newState.folderTouched = true;
     this.setState(newState);
   }
 
@@ -51,20 +53,20 @@ export default class AddNote extends Component {
   validateNoteName() {
     const name = this.state.note.name.trim();
     if (name.length === 0) {
-      return "A name is required for the note.";
+      return "(name is required)";
     }
   }
 
   validateNoteFolderId() {
     if (this.state.note.folderId === "") {
-      return "Please select a folder.";
+      return "(please select a folder)";
     }
   }
 
   validateNoteContent() {
     const content = this.state.note.content.trim();
     if (content.length === 0) {
-      return "Some content is required for the note.";
+      return "(some content is required)";
     }
   }
 
@@ -101,6 +103,7 @@ export default class AddNote extends Component {
         </option>
       );
     });
+    const folderError = this.validateNoteFolderId();
     const nameError = this.validateNoteName();
     const contentError = this.validateNoteContent();
 
@@ -113,11 +116,19 @@ export default class AddNote extends Component {
           }}
         >
           <label htmlFor="folderId">
-            <h2>Folder:</h2>
+            <h2>
+              Folder:
+              <span className="required"> * </span>
+              {this.state.folderTouched && (
+                <ValidationError message={folderError} />
+              )}
+            </h2>
           </label>
           <select
             id="folderId"
             name="folderId"
+            aria-required="true"
+            aria-invalid={folderError}
             value={this.state.note.folderId}
             onChange={(e) => {
               this.updateNoteFolderId(e.target.value);
@@ -128,23 +139,39 @@ export default class AddNote extends Component {
             <option value="addNewFolder">Add new folder...</option>
           </select>
           <label htmlFor="noteName">
-            <h2>Name:</h2>
+            <h2>
+              Name:
+              <span className="required"> * </span>
+              {this.state.nameTouched && (
+                <ValidationError message={nameError} />
+              )}
+            </h2>
           </label>
           <input
             type="text"
             id="noteName"
             name="noteName"
+            aria-required="true"
+            aria-invalid={nameError}
             value={this.state.note.name}
             onChange={(e) => {
               this.updateNoteName(e.target.value);
             }}
           />
           <label htmlFor="noteContent">
-            <h2>Content:</h2>
+            <h2>
+              Content:
+              <span className="required"> * </span>
+              {this.state.contentTouched && (
+                <ValidationError message={contentError} />
+              )}
+            </h2>
           </label>
           <textarea
             id="noteContent"
             name="noteContent"
+            aria-required="true"
+            aria-invalid={contentError}
             value={this.state.note.content}
             onChange={(e) => {
               this.updateNoteContent(e.target.value);
@@ -160,11 +187,6 @@ export default class AddNote extends Component {
           >
             Add Note
           </button>
-
-          {this.state.nameTouched && <ValidationError message={nameError} />}
-          {this.state.contentTouched && (
-            <ValidationError message={contentError} />
-          )}
         </form>
       </section>
     );

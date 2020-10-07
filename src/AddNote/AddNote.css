@@ -59,7 +59,8 @@
   width: calc(var(--note-height));
 }
 
-.AddNote__form button:hover {
+.AddNote__form button:hover,
+.AddNote__form button:focus {
   background-color: #29862e;
   color: white;
   cursor: pointer;
@@ -71,4 +72,8 @@
   background-color: #041a3a;
   color: #bdbcbc;
   font-weight: normal;
+}
+
+.required {
+  color: #c51244;
 }

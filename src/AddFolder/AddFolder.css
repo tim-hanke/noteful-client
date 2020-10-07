@@ -54,7 +54,8 @@
   width: calc(var(--form-height));
 }
 
-.AddFolder__form button:hover {
+.AddFolder__form button:hover,
+.AddFolder__form button:focus {
   background-color: #29862e;
   color: white;
   cursor: pointer;
@@ -66,4 +67,8 @@
   background-color: #041a3a;
   color: #bdbcbc;
   font-weight: normal;
+}
+
+.required {
+  color: #c51244;
 }

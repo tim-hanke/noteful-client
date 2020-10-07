@@ -1,4 +1,3 @@
-
 .Note {
   --note-height: 88px;
   background-color: #010d1e;
@@ -24,7 +23,8 @@
   transform: rotate(-90deg);
   width: calc(var(--note-height));
 }
-.Note__delete:hover {
+.Note__delete:hover,
+.Note__delete:focus {
   background-color: #bd0909;
   color: white;
   cursor: pointer;
@@ -44,7 +44,7 @@
   text-decoration: none;
 }
 .Note__title a:hover {
-  color: #FFB72F;
+  color: #ffb72f;
 }
 
 .Note__dates {
