@@ -1,4 +1,3 @@
-
 .NoteListNav__list {
   list-style-type: none;
   margin: 130px 0 0;
@@ -30,7 +29,7 @@
   text-decoration: none;
 }
 .NoteListNav__folder-link:hover {
-  color: #FFB72F;
+  color: #ffb72f;
   cursor: pointer;
 }
 .NoteListNav__folder-link.active {
@@ -41,5 +40,5 @@
   color: #adadad;
   display: block;
   float: right;
-  font-size: 10px;
+  font-size: 11px;
 }

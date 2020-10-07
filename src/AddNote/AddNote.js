@@ -112,16 +112,6 @@ export default class AddNote extends Component {
             this.handleSubmit(e);
           }}
         >
-          <button
-            type="submit"
-            disabled={
-              this.validateNoteFolderId() ||
-              this.validateNoteName() ||
-              this.validateNoteContent()
-            }
-          >
-            Add Note
-          </button>
           <label htmlFor="folderId">
             <h2>Folder:</h2>
           </label>
@@ -160,6 +150,17 @@ export default class AddNote extends Component {
               this.updateNoteContent(e.target.value);
             }}
           />
+          <button
+            type="submit"
+            disabled={
+              this.validateNoteFolderId() ||
+              this.validateNoteName() ||
+              this.validateNoteContent()
+            }
+          >
+            Add Note
+          </button>
+
           {this.state.nameTouched && <ValidationError message={nameError} />}
           {this.state.contentTouched && (
             <ValidationError message={contentError} />

@@ -10,7 +10,8 @@
   padding: 8px;
   text-align: center;
   text-decoration: none;
-  width: 150px;
+  width: 100%;
+  max-width: 150px;
 }
 
 a.NavCircleButton {

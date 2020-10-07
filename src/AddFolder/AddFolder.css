@@ -48,7 +48,7 @@
   font-size: 12px;
   height: var(--form-button-height);
   position: relative;
-  top: calc((var(--form-button-height) + 8px) * -1);
+  top: calc((var(--form-button-height) + 68px) * -1);
   transform-origin: right bottom;
   transform: rotate(-90deg);
   width: calc(var(--form-height));

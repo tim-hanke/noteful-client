@@ -53,7 +53,7 @@
   font-size: 12px;
   height: var(--note-button-height);
   position: relative;
-  top: calc((var(--note-button-height) + 8px) * -1);
+  top: calc((var(--note-button-height) + 259px) * -1);
   transform-origin: right bottom;
   transform: rotate(-90deg);
   width: calc(var(--note-height));

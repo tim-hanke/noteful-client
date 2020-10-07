@@ -63,9 +63,6 @@ export default class AddFolder extends Component {
             this.handleSubmit(e);
           }}
         >
-          <button type="submit" disabled={this.validateFolderName()}>
-            Add Folder
-          </button>
           <label htmlFor="folderName">
             <h2>Folder Name:</h2>
           </label>
@@ -78,6 +75,9 @@ export default class AddFolder extends Component {
               this.updateFolderName(e.target.value);
             }}
           />
+          <button type="submit" disabled={this.validateFolderName()}>
+            Add Folder
+          </button>
           {this.state.folder.touched && (
             <ValidationError message={folderError} />
           )}
