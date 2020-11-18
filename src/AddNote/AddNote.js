@@ -14,9 +14,9 @@ export default class AddNote extends Component {
     this.state = {
       note: {
         name: "",
-        folderId: this.props.match.params.folderId,
+        folder_id: this.props.match.params.folder_id,
         content: "",
-        modified: "",
+        date_modified: "",
       },
       folderTouched: false,
       nameTouched: false,
@@ -26,12 +26,12 @@ export default class AddNote extends Component {
 
   static contextType = NotefulContext;
 
-  updateNoteFolderId(folderId) {
-    if (folderId === "addNewFolder") {
+  updateNoteFolderId(folder_id) {
+    if (folder_id === "addNewFolder") {
       this.props.history.push("/add-folder");
     }
     const newState = this.state;
-    newState.note.folderId = folderId;
+    newState.note.folder_id = folder_id;
     newState.folderTouched = true;
     this.setState(newState);
   }
@@ -58,7 +58,7 @@ export default class AddNote extends Component {
   }
 
   validateNoteFolderId() {
-    if (this.state.note.folderId === "") {
+    if (this.state.note.folder_id === "") {
       return "(please select a folder)";
     }
   }
@@ -73,7 +73,7 @@ export default class AddNote extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     const { note } = this.state;
-    note.modified = Date().toLocaleString();
+    note.date_modified = new Date().toLocaleString();
     const options = {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -115,7 +115,7 @@ export default class AddNote extends Component {
             this.handleSubmit(e);
           }}
         >
-          <label htmlFor="folderId">
+          <label htmlFor="folder_id">
             <h2>
               Folder:
               <span className="required"> * </span>
@@ -125,11 +125,11 @@ export default class AddNote extends Component {
             </h2>
           </label>
           <select
-            id="folderId"
-            name="folderId"
+            id="folder_id"
+            name="folder_id"
             aria-required="true"
             aria-invalid={folderError}
-            value={this.state.note.folderId}
+            value={this.state.note.folder_id}
             onChange={(e) => {
               this.updateNoteFolderId(e.target.value);
             }}

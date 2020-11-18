@@ -12,22 +12,26 @@ export default class NoteListMain extends Component {
 
   render() {
     const { notes } = this.context;
-    const { folderId } = this.props.match.params;
-    const filteredNotes = getNotesForFolder(notes, folderId);
+    const { folder_id } = this.props.match.params;
+    const filteredNotes = getNotesForFolder(notes, Number(folder_id));
 
     return (
       <section className="NoteListMain">
         <ul>
           {filteredNotes.map((note) => (
             <li key={note.id}>
-              <Note id={note.id} name={note.name} modified={note.modified} />
+              <Note
+                id={note.id}
+                name={note.name}
+                date_modified={note.date_modified}
+              />
             </li>
           ))}
         </ul>
         <div className="NoteListMain__button-container">
           <CircleButton
             tag={Link}
-            to={`/add-note/${folderId}`}
+            to={`/add-note/${folder_id}`}
             type="button"
             className="NoteListMain__add-note-button"
           >

@@ -55,7 +55,7 @@ export default class Note extends Component {
           <div className="Note__dates-modified">
             Modified{" "}
             <span className="Date">
-              {format(this.props.modified, "Do MMM YYYY")}
+              {format(this.props.date_modified, "Do MMM YYYY")}
             </span>
           </div>
         </div>
@@ -65,7 +65,7 @@ export default class Note extends Component {
 }
 
 Note.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  modified: PropTypes.string.isRequired,
+  date_modified: PropTypes.string.isRequired,
 };

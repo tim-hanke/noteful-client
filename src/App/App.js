@@ -56,7 +56,7 @@ class App extends Component {
     // paths and NotePageNav goes with the other ones
     return (
       <>
-        {["/", "/folder/:folderId"].map((path) => (
+        {["/", "/folder/:folder_id"].map((path) => (
           <Route exact key={path} path={path} component={NoteListNav} />
         ))}
         {["/note/:noteId", "/add-folder", "/add-note"].map((path) => (
@@ -69,12 +69,12 @@ class App extends Component {
   renderMainRoutes() {
     return (
       <>
-        {["/", "/folder/:folderId"].map((path) => (
+        {["/", "/folder/:folder_id"].map((path) => (
           <Route exact key={path} path={path} component={NoteListMain} />
         ))}
         <Route path="/note/:noteId" component={NotePageMain} />
         <Route path="/add-folder" component={AddFolder} />
-        <Route path="/add-note/:folderId" component={AddNote} />
+        <Route path="/add-note/:folder_id" component={AddNote} />
       </>
     );
   }

@@ -55,7 +55,6 @@ export default class AddFolder extends Component {
 
   render() {
     const folderError = this.validateFolderName();
-    console.log(folderError);
     return (
       <section className="AddFolder">
         <form

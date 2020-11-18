@@ -1,1 +1,1 @@
-export const noteServer = "http://localhost:9090";
+export const noteServer = "http://localhost:8000/api";
