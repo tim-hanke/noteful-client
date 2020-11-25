@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Note.css";
-import { noteServer } from "../config";
+import config from "../config";
 import NotefulContext from "../NotefulContext/NotefulContext";
 import PropTypes from "prop-types";
 
@@ -18,11 +18,14 @@ export default class Note extends Component {
 
     const options = {
       method: "DELETE",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${config.API_KEY}`,
+      },
     };
     const noteId = this.props.id;
 
-    fetch(noteServer + `/notes/${noteId}`, options)
+    fetch(config.API_ENDPOINT + `/notes/${noteId}`, options)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Something went wrong deleting the note.");

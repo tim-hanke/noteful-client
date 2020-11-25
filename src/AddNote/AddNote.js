@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { noteServer } from "../config";
+import config from "../config";
 import NotefulContext from "../NotefulContext/NotefulContext";
 import ValidationError from "../ValidationError/ValidationError";
 import "./AddNote.css";
@@ -76,11 +76,14 @@ export default class AddNote extends Component {
     note.date_modified = new Date().toLocaleString();
     const options = {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${config.API_KEY}`,
+      },
       body: JSON.stringify(note),
     };
     try {
-      const noteResponse = await fetch(noteServer + "/notes", options);
+      const noteResponse = await fetch(config.API_ENDPOINT + "/notes", options);
 
       if (!noteResponse.ok) {
         throw new Error("Something went wrong adding the note.");

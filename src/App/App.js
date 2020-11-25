@@ -7,7 +7,7 @@ import NoteListMain from "../NoteListMain/NoteListMain";
 import NotePageMain from "../NotePageMain/NotePageMain";
 import NotefulContext from "../NotefulContext/NotefulContext";
 import AddFolder from "../AddFolder/AddFolder";
-import { noteServer } from "../config";
+import config from "../config";
 import "./App.css";
 import AddNote from "../AddNote/AddNote";
 import NavError from "../NavError/NavError";
@@ -24,13 +24,16 @@ class App extends Component {
     // I found that we can do them at the same time with 'Promise.all'
     const options = {
       method: "GET",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${config.API_KEY}`,
+      },
     };
 
     try {
       const [notesResponse, foldersResponse] = await Promise.all([
-        fetch(noteServer + "/notes", options),
-        fetch(noteServer + "/folders", options),
+        fetch(config.API_ENDPOINT + "/notes", options),
+        fetch(config.API_ENDPOINT + "/folders", options),
       ]);
 
       if (!notesResponse.ok || !foldersResponse.ok) {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { noteServer } from "../config";
+import config from "../config";
 import NotefulContext from "../NotefulContext/NotefulContext";
 import ValidationError from "../ValidationError/ValidationError";
 import "./AddFolder.css";
@@ -33,12 +33,18 @@ export default class AddFolder extends Component {
     const { folder } = this.state;
     const options = {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${config.API_KEY}`,
+      },
       body: JSON.stringify(folder),
     };
 
     try {
-      const folderResponse = await fetch(noteServer + "/folders", options);
+      const folderResponse = await fetch(
+        config.API_ENDPOINT + "/folders",
+        options
+      );
 
       if (!folderResponse.ok) {
         throw new Error("Something went wrong adding the folder.");
