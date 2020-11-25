@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddFolder component renders an AddFolder componet by default 1`] = `
+<section
+  className="AddFolder"
+>
+  <form
+    className="AddFolder__form"
+    onSubmit={[Function]}
+  >
+    <label
+      htmlFor="folderName"
+    >
+      <h2>
+        Folder Name:
+        <span
+          className="required"
+        >
+           * 
+        </span>
+      </h2>
+    </label>
+    <input
+      aria-invalid="(name is required)"
+      aria-required="true"
+      id="folderName"
+      name="folderName"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+    <button
+      disabled="(name is required)"
+      type="submit"
+    >
+      Add Folder
+    </button>
+  </form>
+</section>
+`;
